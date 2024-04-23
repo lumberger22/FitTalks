@@ -5,7 +5,7 @@ import './CreatePost.css'
 
 export default function CreatePost() {
 
-    const [post, setPost] = useState({title: "", description: "", media: "", likes: 0})
+    const [post, setPost] = useState({title: "", description: "", media: ""})
 
     const handleChange = (event) => {
         const {name, value} = event.target;
@@ -22,7 +22,7 @@ export default function CreatePost() {
       
         await supabase
           .from('Posts')
-          .insert({title: post.title, description: post.description, media: post.media, likes: post.likes})
+          .insert({title: post.title, description: post.description, media: post.media})
           .select();
       
         window.location = "/posts";
