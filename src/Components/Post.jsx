@@ -22,4 +22,4 @@ const Post = (props) =>  {
   );
 };
 
-export default Card;
+export default Post;

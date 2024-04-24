@@ -27,7 +27,7 @@ const Gallery = (props) => {
                 <div className="gallery">
                     {
                         check > 0 ? (post && post.length > 0 ?
-                        crew.map((member,index) => 
+                        post.map((member,index) => 
                         <Post key={index} id={member.id} title={member.title} timestamp={member.created_at} likes={member.likes}/>
                         ) : <h2>{'No Posts Yet'}</h2>
                     ) : null
