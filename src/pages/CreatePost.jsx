@@ -25,7 +25,7 @@ export default function CreatePost() {
           .insert({title: post.title, description: post.description, media: post.media})
           .select();
       
-        window.location = "/posts";
+        window.location = "/";
     }
 
     return (

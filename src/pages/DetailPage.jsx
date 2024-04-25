@@ -42,7 +42,7 @@ export default function DetailPage() {
                     <h3 className="details--likes">Likes: {post.likes}</h3>
                 </div>
             </div>
-            <p className='back-btn'><a href='/posts'>Back to Posts</a></p>
+            <p className='back-btn'><a href='/'>Back to Posts</a></p>
         </div>
     )
 }

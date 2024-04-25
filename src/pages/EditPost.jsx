@@ -50,7 +50,7 @@ const EditPost = () => {
         if (error) {
             console.error('Error updating post', error);
         } else {
-            window.location = "/posts";
+            window.location = "/";
         }
     };
 
