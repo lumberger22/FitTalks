@@ -30,31 +30,30 @@ export default function CreatePost() {
 
     return (
         <div>
-            <form autoComplete='off'>
+            <form autoComplete='off' className='create--form'>
                 <input 
                     type="text" 
                     id="title" 
                     name="title" 
-                    placeholder="Title" 
-                    required 
+                    placeholder="Title"
+                    maxLength={49}
+                    required
                     onChange={handleChange} /><br />
-                <br/>
 
-                <input
-                    type="text" 
+                <textarea
                     id="description" 
-                    name="description" 
-                    placeholder="Content (Optional)" 
-                    onChange={handleChange} /><br />
-                <br/>
+                    name="description"
+                    cols={1000}
+                    rows={5}
+                    placeholder="Content (Optional)"
+                    onChange={handleChange} /><br/>
 
                 <input
                     type="text" 
                     id="media" 
                     name="media" 
                     placeholder="Image URL (Optional)"
-                    onChange={handleChange} /><br />
-                <br/>
+                    onChange={handleChange} />
                 
                 <input type="submit" value="Create Post" onClick={createPost}/>
             </form>
