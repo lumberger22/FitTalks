@@ -3,39 +3,52 @@ import Post from '../Components/Post';
 import { supabase } from '../client';
 import './Gallery.css';
 
-const Gallery = (props) => {
+const Gallery = () => {
 
-    const [post, setPost] = useState([]);
-    const [check, setCheck] = useState(0);
+    const [posts, setPosts] = useState([]);
 
     useEffect(() => {
+        fetchPosts('created_at', 'desc');
+    }, []);
 
-        const fetchPost = async () => {
-            const {data} = await supabase.from('Posts').select();
-            setPost(data);
-            setCheck(check + 1);
+    const fetchPosts = async (sortField, sortOrder) => {
+        const { data, error } = await supabase
+            .from('Posts')
+            .select()
+            .order(sortField, { ascending: sortOrder === 'asc' });
+        if (error) {
+            console.error('Error fetching posts:', error);
+        } else {
+            setPosts(data);
         }
+    };
 
-        setPost(props.data);
-        fetchPost();
+    const sortByLikes = () => {
+        fetchPosts('likes', 'desc');
+    };
 
-    }, [props]);
+    const sortByDate = () => { 
+        fetchPosts('created_at', 'desc');
+    };
     
     return (
-        <>
-            <div className="gallery--page">
-                <div className="gallery">
-                    {
-                        check > 0 ? (post && post.length > 0 ?
-                        post.map((member,index) => 
-                        <Post key={index} id={member.id} title={member.title} timestamp={member.created_at} likes={member.likes}/>
-                        ) : <h2>{'No Posts Yet'}</h2>
-                    ) : null
-                    }
-                </div> 
+        <div className="gallery--page">
+            <div className="gallery--header">
+                <p>Order by: </p>
+                <div className='order--btns'>
+                    <button onClick={sortByLikes}>Likes</button>
+                    <button onClick={sortByDate}>Date</button>
+                </div>
             </div>
-        </>
-    )
+            <div className="gallery">
+                {posts.length > 0 ? (
+                    posts.map((post, index) => 
+                        <Post key={index} id={post.id} title={post.title} timestamp={post.created_at} likes={post.likes} />
+                    )
+                ) : <h2>No Posts Yet</h2>}
+            </div> 
+        </div>
+    );
 }
 
 export default Gallery;
