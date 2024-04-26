@@ -83,8 +83,9 @@ export default function DetailPage() {
                         </div>
                     </div>
                 </div>
+                <Comments id={id} />
             </div>
-            <Comments id={id} />
+            
         </div>
     )
 }
