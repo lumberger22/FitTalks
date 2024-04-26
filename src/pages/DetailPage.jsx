@@ -2,11 +2,14 @@ import './DetailPage.css'
 import { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { supabase } from '../client';
+import { Link } from 'react-router-dom'
+import TimeAgo from '../Components/Timeago'
+import Comments from '../Components/Comments';
 
 export default function DetailPage() {
 
     const [post, setPost] = useState({
-        title: '', description: '', media: '', likes: 0
+        title: '', description: '', media: '', likes: 0, id: '', created_at: ''
     });
     const { id } = useParams();
     
@@ -14,14 +17,8 @@ export default function DetailPage() {
         const fetchPost = async () => {
             const { data, error } = await supabase.from('Posts').select('*').eq('id', id).single();
             if (data) {
-                setPost({
-                    title: data.title,
-                    description: data.description,
-                    media: data.media,
-                    likes: data.likes
-                });
-            }
-            if (error) {
+                setPost(data);
+            } else if (error) {
                 console.error('Error fetching post', error);
             }
         };
@@ -29,20 +26,65 @@ export default function DetailPage() {
         fetchPost();
     }, [id]);
 
+    const addLike = async () => {
+        const newLikes = post.likes + 1;
+        const { data, error } = await supabase
+            .from('Posts')
+            .update({ likes: newLikes })
+            .eq('id', id);
+
+        if (error) {
+            console.error('Error updating post', error);
+        } else {
+            setPost({...post, likes: newLikes});
+        }
+    };
+
+    const deletePost = async (event) => {
+        event.preventDefault();
+
+        const { data, error } = await supabase
+            .from('Posts')
+            .delete()
+            .eq('id', id);
+
+        if (error) {
+            console.error('Error deleting post', error);
+        } else {
+            window.location = "/";
+        }
+    };
+
     return (
         <div className="detail--page">
-            <h1 className='detail--page--header'>Post Details</h1>
-            <hr />
+            <a className='back-btn' href='/'><span className='back--arrow'>&#8592;</span> Back</a>
             <div className="detail--page--content">
-                <h1 className='detail--page--title'>{post.title}</h1>
+                <TimeAgo timestamp={post.created_at} />
+                <div className='detail--page--header'>
+                    <h1 className='detail--page--title'>{post.title}</h1>
+                </div>
                 <div className="detail--page--details">
-                    <h3 className="details--title">Title: {post.title}</h3>
-                    <h3 className="details--description">Description: {post.description}</h3>
-                    <h3 className="details--media">Media: {post.media}</h3>
-                    <h3 className="details--likes">Likes: {post.likes}</h3>
+                    <p className="details--description">{post.description}</p>
+                    {  
+                        post.media && post.media !== '' ? (
+                            <img className="details--media" src={post.media} alt="post media"/>
+                        ) : null
+                    }
+                    <div className="details--likes">
+                        <div className='like-btn--container'>
+                            <img className="more-btn" alt="likes button" src='/src/Components/like.png' onClick={addLike}/>
+                            <p className="details--likes">{post.likes} upvotes</p>
+                        </div>                        
+                        <div className='more-btn--container'>
+                            <Link to={'/editPost/'+ post.id}>
+                                <img className="more-btn" alt="edit button" src='/src/Components/editing.png' />
+                            </Link>
+                            <img className="more-btn" alt="delete button" src='/src/Components/delete.png' onClick={deletePost}/>
+                        </div>
+                    </div>
                 </div>
             </div>
-            <p className='back-btn'><a href='/'>Back to Posts</a></p>
+            <Comments id={id} />
         </div>
     )
 }

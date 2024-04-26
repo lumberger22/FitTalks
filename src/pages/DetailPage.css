@@ -1,0 +1,65 @@
+.detail--page--header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.details--title,
+.details--description,
+.details--media,
+.details--likes,
+.detail--page--title {
+    color: black;
+}
+
+.detail--page--content {
+    background-color: white;
+    color: black;
+    padding: 20px;
+    border-radius: 5px;
+    width: 70vw;
+    margin-top: 10px;
+}
+
+.details--description {
+    margin: 0px;
+    margin-bottom: 10px;
+}
+
+.details--media {
+    margin-top: 10px;
+}
+
+.details--likes {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.more-btn--container {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    align-items: flex-start;
+}
+
+.like-btn--container {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    align-items: center;
+}
+
+.back-btn {
+    color: black;
+    transition: ease-in-out 0.2s;
+}
+
+.back-btn:hover {
+    cursor: pointer;
+    transform: scale(1.15);
+}
+
+.back--arrow {
+    font-size: 20px;
+}
