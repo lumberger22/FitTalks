@@ -54,51 +54,37 @@ const EditPost = () => {
         }
     };
 
-    const deletePost = async (event) => {
-        event.preventDefault();
-
-        const { data, error } = await supabase
-            .from('Posts')
-            .delete()
-            .eq('id', id);
-
-        if (error) {
-            console.error('Error deleting post', error);
-        } else {
-            window.location = "/";
-        }
-    };
-
     return (
         <div>
-            <form autoComplete='off'>
-            <input 
+            <form autoComplete='off' className='create--form'>
+                <input 
                     type="text" 
                     id="title" 
-                    name="title"
+                    name="title" 
+                    placeholder="Title"
+                    maxLength={49}
+                    required
                     value={post.title}
-                    required 
                     onChange={handleChange} /><br />
-                <br/>
 
-                <input
-                    type="text" 
+                <textarea
                     id="description" 
-                    name="description" 
-                    value={post.description} 
-                    onChange={handleChange} /><br />
-                <br/>
+                    name="description"
+                    cols={1000}
+                    rows={5}
+                    placeholder="Content (Optional)"
+                    value={post.description}
+                    onChange={handleChange} /><br/>
 
                 <input
                     type="text" 
                     id="media" 
                     name="media" 
+                    placeholder="Image URL (Optional)"
                     value={post.media}
-                    onChange={handleChange} /><br />
-                <br/>
-
-                <input type="submit" value="Update Post" onClick={updatePost} />
-                <button className="deleteButton" onClick={deletePost}>Delete</button>
+                    onChange={handleChange} />
+                
+                <input type="submit" value="Update Post" onClick={updatePost}/>
             </form>
         </div>
     );
