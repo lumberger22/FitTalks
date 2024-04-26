@@ -6,15 +6,22 @@ import CreatePost from './pages/CreatePost'
 import EditPost from './pages/EditPost'
 import DetailPage from './pages/DetailPage'
 import { Link } from 'react-router-dom'
+import { useState } from 'react';
 
 
 const App = () => { 
+
+  const [searchTerm, setSearchTerm] = useState('');
+
+  const handleSearchChange = (event) => {
+    setSearchTerm(event.target.value);
+  };
 
   // Sets up routes
   let element = useRoutes([
     {
       path: "/",
-      element:<Gallery />
+      element:<Gallery searchTerm={searchTerm}/>
     },
     {
       path:"/editPost/:id",
@@ -35,7 +42,12 @@ const App = () => {
     <div className="App">
       <div className="nav">
         <h1>FitTalks</h1>
-        <input type="text" placeholder="Search" className="searchBar"></input>
+        <input 
+          type="text" 
+          placeholder="Search" 
+          className="searchBar" 
+          value={searchTerm}
+          onChange={handleSearchChange}></input>
         <div className='app--nav-btn--container'>
           <Link to="/" className="nav-btn"> Home </Link>
           <Link to="/newPost" className="nav-btn"> Create New Post </Link>
