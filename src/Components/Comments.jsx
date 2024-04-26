@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { supabase } from '../client';
+import './Comments.css';
 
 const Comments = ({ id }) => {
     const [comments, setComments] = useState([]);
@@ -46,21 +47,19 @@ const Comments = ({ id }) => {
     };
 
     return (
-        <div>
-            <p className='comments--title'>Comments</p>
-            <form>
+        <div className='comments--section'>
+            <form className='comment--form' onSubmit={submitComment}>
                 <input
                     type="text"
-                    placeholder="Add a comment..."
+                    placeholder="Leave a Comment..."
                     value={newComment}
                     onChange={handleCommentChange}
                 />
-                <button type="submit" onClick={submitComment}>Submit</button>
             </form>
             {comments && comments.length > 0 ? (
                 comments.map((comment, index) => (
                     <div key={index}>
-                        <p>{comment}</p>
+                        <p className='comment--text'>- {comment}</p>
                     </div>
                 ))
             ) : (
