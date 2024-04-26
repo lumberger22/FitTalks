@@ -3,7 +3,7 @@ import Post from '../Components/Post';
 import { supabase } from '../client';
 import './Gallery.css';
 
-const Gallery = () => {
+const Gallery = ({ searchTerm }) => {
 
     const [posts, setPosts] = useState([]);
 
@@ -11,15 +11,25 @@ const Gallery = () => {
         fetchPosts('created_at', 'desc');
     }, []);
 
-    const fetchPosts = async (sortField, sortOrder) => {
-        const { data, error } = await supabase
-            .from('Posts')
-            .select()
-            .order(sortField, { ascending: sortOrder === 'asc' });
-        if (error) {
-            console.error('Error fetching posts:', error);
-        } else {
+    useEffect(() => {
+        fetchPosts();
+    }, [searchTerm]);
+
+    const fetchPosts = async (sortField = 'created_at', sortOrder = 'desc') => {
+        try {
+            const { data, error } = await supabase
+                .from('Posts')
+                .select()
+                .ilike('title', `%${searchTerm}%`)
+                .order(sortField, { ascending: sortOrder === 'asc' });
+            
+            if (error) {
+                throw error;
+            }
+
             setPosts(data);
+        } catch (error) {
+            console.error('Error fetching posts:', error);
         }
     };
 
@@ -36,8 +46,8 @@ const Gallery = () => {
             <div className="gallery--header">
                 <p>Order by: </p>
                 <div className='order--btns'>
-                    <button onClick={sortByLikes}>Likes</button>
-                    <button onClick={sortByDate}>Date</button>
+                    <button className='most--popular-btn' onClick={sortByLikes}>Most Popular</button>
+                    <button className='newest-btn' onClick={sortByDate}>Newest</button>
                 </div>
             </div>
             <div className="gallery">
