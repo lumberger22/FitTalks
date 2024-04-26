@@ -1,0 +1,16 @@
+.gallery {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.gallery--header {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.order--btns {
+    display: flex;
+    gap: 0.5rem;
+}
