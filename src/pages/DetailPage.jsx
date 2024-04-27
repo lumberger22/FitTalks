@@ -51,7 +51,7 @@ export default function DetailPage() {
         if (error) {
             console.error('Error deleting post', error);
         } else {
-            window.location = "/";
+            window.location = "/FitTalks/";
         }
     };
 
@@ -76,7 +76,7 @@ export default function DetailPage() {
                             <p className="details--likes">{post.likes} upvotes</p>
                         </div>                        
                         <div className='more-btn--container'>
-                            <Link to={'/editPost/'+ post.id}>
+                            <Link to={'/FitTalks/editPost/'+ post.id}>
                                 <img className="more-btn" alt="edit button" src='/src/Components/editing.png' />
                             </Link>
                             <img className="more-btn" alt="delete button" src='/src/Components/delete.png' onClick={deletePost}/>

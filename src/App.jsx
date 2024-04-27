@@ -20,19 +20,19 @@ const App = () => {
   // Sets up routes
   let element = useRoutes([
     {
-      path: "/",
+      path: "/FitTalks/",
       element:<Gallery searchTerm={searchTerm}/>
     },
     {
-      path:"/editPost/:id",
+      path:"/FitTalks/editPost/:id",
       element: <EditPost />
     },
     {
-      path:"/newPost",
+      path:"/FitTalks/newPost",
       element: <CreatePost />
     },
     {
-      path:"/detailPage/:id",
+      path:"/FitTalks/detailPage/:id",
       element: <DetailPage />
     }
   ]);
@@ -49,8 +49,8 @@ const App = () => {
           value={searchTerm}
           onChange={handleSearchChange}></input>
         <div className='app--nav-btn--container'>
-          <Link to="/" className="nav-btn"> Home </Link>
-          <Link to="/newPost" className="nav-btn"> Create New Post </Link>
+          <Link to="/FitTalks/" className="nav-btn"> Home </Link>
+          <Link to="/FitTalks/newPost" className="nav-btn"> Create New Post </Link>
         </div>
       </div>
       <div className='content'>
