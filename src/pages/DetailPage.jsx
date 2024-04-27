@@ -5,6 +5,9 @@ import { supabase } from '../client';
 import { Link } from 'react-router-dom'
 import TimeAgo from '../Components/Timeago'
 import Comments from '../Components/Comments';
+import like_icon from '/public/like.png';
+import delete_icon from '/public/delete.png';
+import edit_icon from '/public/editing.png';
 
 export default function DetailPage() {
 
@@ -57,7 +60,7 @@ export default function DetailPage() {
 
     return (
         <div className="detail--page">
-            <a className='back-btn' href='/'><span className='back--arrow'>&#8592;</span> Back</a>
+            <a className='back-btn' href='/FitTalks/'><span className='back--arrow'>&#8592;</span> Back</a>
             <div className="detail--page--content">
                 <TimeAgo timestamp={post.created_at} />
                 <div className='detail--page--header'>
@@ -72,14 +75,14 @@ export default function DetailPage() {
                     }
                     <div className="details--likes">
                         <div className='like-btn--container'>
-                            <img className="more-btn" alt="likes button" src='/src/Components/like.png' onClick={addLike}/>
+                            <img className="more-btn" alt="likes button" src={like_icon} onClick={addLike}/>
                             <p className="details--likes">{post.likes} upvotes</p>
                         </div>                        
                         <div className='more-btn--container'>
                             <Link to={'/FitTalks/editPost/'+ post.id}>
-                                <img className="more-btn" alt="edit button" src='/src/Components/editing.png' />
+                                <img className="more-btn" alt="edit button" src={edit_icon} />
                             </Link>
-                            <img className="more-btn" alt="delete button" src='/src/Components/delete.png' onClick={deletePost}/>
+                            <img className="more-btn" alt="delete button" src={delete_icon} onClick={deletePost}/>
                         </div>
                     </div>
                 </div>
