@@ -12,9 +12,11 @@
   "dependencies": {
     "@supabase/supabase-js": "^2.42.5",
     "date-fns": "^3.6.0",
+    "next-themes": "^0.3.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
-    "react-router-dom": "^6.23.0"
+    "react-router-dom": "^6.23.0",
+    "sonner": "^1.4.41"
   },
   "devDependencies": {
     "@types/react": "^18.2.66",

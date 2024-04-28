@@ -13,7 +13,9 @@ function TimeAgo({ timestamp }) {
       const daysDiff = differenceInDays(now, date);
 
       let timeAgoString;
-      if (minutesDiff < 60) {
+      if (minutesDiff === 0) {
+        timeAgoString = `Less than 1 minute ago`;
+      } else if (minutesDiff < 60) {
         timeAgoString = `${minutesDiff} minute${minutesDiff !== 1 ? 's' : ''} ago`;
       } else if (hoursDiff < 24) {
         timeAgoString = `${hoursDiff} hour${hoursDiff !== 1 ? 's' : ''} ago`;
