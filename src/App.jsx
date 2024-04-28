@@ -5,7 +5,9 @@ import Gallery from './pages/Gallery'
 import CreatePost from './pages/CreatePost'
 import EditPost from './pages/EditPost'
 import DetailPage from './pages/DetailPage'
-import { Link } from 'react-router-dom'
+import SignUp from './pages/SignUp';
+import SignIn from './pages/SignIn';
+import { Link } from 'react-router-dom';
 import { useState } from 'react';
 
 
@@ -34,6 +36,14 @@ const App = () => {
     {
       path:"/FitTalks/detailPage/:id",
       element: <DetailPage />
+    },
+    {
+      path:"/FitTalks/signup",
+      element: <SignUp />
+    },
+    {
+      path:"/FitTalks/signin",
+      element: <SignIn />
     }
   ]);
 
